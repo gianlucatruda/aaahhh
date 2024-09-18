@@ -1,11 +1,9 @@
 // Application
 let winX = window.innerWidth - 20;
-let winY = window.innerHeight - 100;
+let winY = window.innerHeight - 200;
 console.log(winX, winY);
-// const X = Math.min(winX, 800);
-// const Y = Math.min(winY, 600);
-const X = 800;
-const Y = 600;
+const X = Math.min(winX, 800);
+const Y = Math.min(winY, 600);
 const TIME = 45;
 
 // Environment

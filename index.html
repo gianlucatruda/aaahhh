@@ -24,7 +24,8 @@
         #gameView {}
 
         #controls {
-            border: 1px solid green;
+            <!-- border: 1px solid green; -->
+            display: inline;
             max-width: 50%;
         }
 
@@ -36,16 +37,16 @@
 </head>
 
 <body>
-    <div id="gameView">
-        <canvas id="myCanvas"></canvas>
-    </div>
     <div id="controls">
         <div>
-            <h2>Score: <span id="score">0</span></h2>
+            <h3>Score: <span id="score">0</span></h3>
         </div>
         <div>
-            <h2>Time: <span id="timer">--</span></h2>
+            <h3>Time: <span id="timer">--</span></h3>
         </div>
+    </div>
+    <div id="gameView">
+        <canvas id="myCanvas"></canvas>
     </div>
     <script src="main.js" type="module"></script>
 </body>
