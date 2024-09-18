@@ -84,6 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.width = X;
   canvas.height = Y;
 
+  let score = 0;
+  const scoreDisplay = document.getElementById('score');
+
   let particles = [];
   for (let i = 0; i < N_PARTICLES; i++) {
     particles.push(
@@ -98,6 +101,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let fcount = 0;
+
+  canvas.addEventListener('click', function(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      const distance = Math.sqrt((p.x - x) ** 2 + (p.y - y) ** 2);
+      if (distance < p.size) {
+        particles.splice(i, 1); // Remove the particle
+        score += 1; // Increment the score
+        scoreDisplay.textContent = score; // Update score display
+        break; // Stop checking once a particle has been found and removed
+      }
+    }
+  });
+
 
   function run() {
     let tStart = performance.now();
