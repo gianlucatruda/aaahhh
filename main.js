@@ -6,6 +6,7 @@ console.log(winX, winY);
 // const Y = Math.min(winY, 600);
 const X = 800;
 const Y = 600;
+const TIME = 60;
 
 // Environment
 const N_PARTICLES = 10;
@@ -78,6 +79,7 @@ function drawMotion(x1, y1, x2, y2, size, ctx) {
   ctx.fill();
 }
 
+
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("myCanvas");
   const ctx = canvas.getContext("2d");
@@ -86,6 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let score = 0;
   const scoreDisplay = document.getElementById('score');
+
+  let remainingTime = TIME;
+  const timerDisplay = document.getElementById('timer');
 
   let particles = [];
   for (let i = 0; i < N_PARTICLES; i++) {
@@ -101,8 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let fcount = 0;
+  let gameActive = true;
+  updateTimer();
 
   canvas.addEventListener('click', function(event) {
+    if (!gameActive) {
+      return;
+    }
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
@@ -119,6 +129,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function updateTimer() {
+    if (remainingTime > 0) {
+      setTimeout(() => {
+        remainingTime--;
+        timerDisplay.textContent = remainingTime;
+        updateTimer();
+      }, 1000); // Update every second
+    } else {
+      gameActive = false;
+      alert("Time's up! Your final score is: " + score);
+      location.reload();
+    }
+  }
 
   function run() {
     let tStart = performance.now();
