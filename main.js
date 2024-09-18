@@ -85,6 +85,31 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.width = X;
   canvas.height = Y;
 
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  function playBeep(duration, frequency, volume) {
+    let oscillator = audioContext.createOscillator();
+    let gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    gainNode.gain.value = volume;
+    oscillator.frequency.value = frequency;
+    oscillator.type = "square";
+
+    oscillator.start();
+
+    setTimeout(() => { oscillator.stop() }, duration);
+  }
+
+  function playTick() {
+    playBeep(20, 1500, 0.1);
+  }
+  function playPop() {
+    playBeep(30, 500, 0.4);
+  }
+
   let score = 0;
   const scoreDisplay = document.getElementById('score');
 
@@ -114,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const p = particles[i];
       const distance = Math.sqrt((p.x - x) ** 2 + (p.y - y) ** 2);
       if (distance < p.size) {
+        playPop();
         particles.splice(i, 1); // Remove the particle
         score += 1; // Increment the score
         scoreDisplay.textContent = score; // Update score display
@@ -127,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         remainingTime--;
         timerDisplay.textContent = remainingTime;
+        playTick();
         updateTimer();
       }, 1000); // Update every second
     } else {
