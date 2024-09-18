@@ -6,7 +6,7 @@ console.log(winX, winY);
 // const Y = Math.min(winY, 600);
 const X = 800;
 const Y = 600;
-const TIME = 60;
+const TIME = 45;
 
 // Environment
 const N_PARTICLES = 10;
@@ -19,13 +19,17 @@ function symClip(x, v) {
 }
 
 class Particle {
-  constructor(x, y, dx, dy) {
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
-    this.prevX = x;
-    this.prevY = y;
+  constructor() {
+    this.x = Math.random() * X;
+    this.y = Math.random() * Y;
+    this.dx = Math.random() * 2 - 1;
+    this.dy = Math.random() * 2 - 1;
+    // this.x = x;
+    // this.y = y;
+    // this.dx = dx;
+    // this.dy = dy;
+    this.prevX = this.x;
+    this.prevY = this.y;
     this.size = Math.random() * 10 + 5;
     this.TURB = 0.01;
     this.FRIC = 0.998;
@@ -155,6 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
       drawMotion(p.prevX, p.prevY, p.x, p.y, p.size, ctx);
     });
 
+    if (particles.length < 5) {
+      particles.push(new Particle());
+    }
 
     let tDelta = performance.now() - tStart;
     let fps = 1 / (tDelta / 1000);
@@ -164,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `Rendered in ${tDelta.toFixed(1)}ms (${fps.toFixed(0)}fps) | ${fcount}`,
       );
     }
-    console.log(particles[0]);
 
     requestAnimationFrame(run);
   }
