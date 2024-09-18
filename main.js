@@ -78,27 +78,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-  function playBeep(duration, frequency, volume) {
+  function playBeep(duration, frequency, volume, decay) {
     let oscillator = audioContext.createOscillator();
     let gainNode = audioContext.createGain();
 
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
-    gainNode.gain.value = volume;
     oscillator.frequency.value = frequency;
-    oscillator.type = "square";
-
+    oscillator.type = "sine";
     oscillator.start();
+
+    gainNode.gain.setValueAtTime(volume, audioContext.currentTime + decay);
 
     setTimeout(() => { oscillator.stop() }, duration);
   }
 
   function playTick() {
-    playBeep(20, 1500, 0.1);
+    playBeep(10, 1000, 0.1, 0.001);
   }
   function playPop() {
-    playBeep(30, 500, 0.4);
+    playBeep(50, 250, 0.3, 0.004);
   }
 
   let score = 0;

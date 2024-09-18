@@ -24,14 +24,16 @@
         #gameView {}
 
         #controls {
-            <!-- border: 1px solid green; -->
-            display: inline;
             max-width: 50%;
         }
 
         canvas {
             display: block;
             border: 1px solid gray;
+        }
+
+        p {
+            color: gray;
         }
     </style>
 </head>
@@ -47,6 +49,9 @@
     </div>
     <div id="gameView">
         <canvas id="myCanvas"></canvas>
+    </div>
+    <div>
+        <p>🔊 For maximum suffering, turn sound on.</p>
     </div>
     <script src="main.js" type="module"></script>
 </body>
