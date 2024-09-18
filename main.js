@@ -17,19 +17,16 @@ function symClip(x, v) {
 }
 
 class Particle {
-  constructor() {
+  constructor(chaos) {
+    this.C = chaos;
     this.x = Math.random() * X;
     this.y = Math.random() * Y;
-    this.dx = Math.random() * 2 - 1;
-    this.dy = Math.random() * 2 - 1;
-    // this.x = x;
-    // this.y = y;
-    // this.dx = dx;
-    // this.dy = dy;
+    this.dx = (Math.random() * 2 - 1) * this.C;
+    this.dy = (Math.random() * 2 - 1) * this.C;
     this.prevX = this.x;
     this.prevY = this.y;
     this.size = Math.random() * 10 + 5;
-    this.TURB = 0.01;
+    this.TURB = (0.05) * this.C;
     this.FRIC = 0.998;
     this.DRAG = 0.001;
     this.MAX_V = 10;
@@ -97,13 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let particles = [];
   for (let i = 0; i < N_PARTICLES; i++) {
     particles.push(
-      new Particle(
-        Math.random() * X,
-        Math.random() * Y,
-        // 0, 0,
-        Math.random() * 2 - 1,
-        Math.random() * 2 - 1,
-      ),
+      new Particle(1),
     );
   }
 
@@ -157,8 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
       drawMotion(p.prevX, p.prevY, p.x, p.y, p.size, ctx);
     });
 
-    if (particles.length < 5) {
-      particles.push(new Particle());
+    if (particles.length < N_PARTICLES) {
+      particles.push(new Particle(
+        ((TIME - remainingTime) / TIME) * 10.0
+      ));
     }
 
     let tDelta = performance.now() - tStart;
