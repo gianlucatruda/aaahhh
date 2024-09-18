@@ -5,6 +5,7 @@ console.log(winX, winY);
 const X = Math.min(winX, 800);
 const Y = Math.min(winY, 600);
 const TIME = 45;
+const MARGIN = 5;
 
 // Environment
 const N_PARTICLES = 10;
@@ -30,6 +31,9 @@ class Particle {
     this.FRIC = 0.998;
     this.DRAG = 0.001;
     this.MAX_V = 10;
+    this.R = Math.floor(Math.random() * 255);
+    this.G = Math.floor(Math.random() * 255);
+    this.B = Math.floor(Math.random() * 255);
   }
 
   move() {
@@ -58,23 +62,10 @@ class Particle {
   }
 }
 
-function drawMotion(x1, y1, x2, y2, size, ctx) {
-  const speed = (x2 - x1) ** 2 + (y2 - y1) ** 2;
-  if (speed > 100) {
-    return
-  }
-  // const color = `hsl(${Math.min(360 - Math.floor(speed) * 50, 360)}, 100%, 60%)`;
-  // const color = `rgba(10, ${Math.min(speed * 400, 255)}, 200, 0.9)`;
-  const color = `rgba(10, 200, 200, 0.9)`;
+function drawParticle(p, ctx) {
+  ctx.fillStyle = `rgba(${p.R}, ${p.G}, ${p.B}, 0.9)`;
   ctx.beginPath();
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = 'rgba(230, 230, 230, 0.9)';
-  ctx.beginPath();
-  ctx.arc(x2, y2, size, 0, Math.PI * 2, true);
+  ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2, true);
   ctx.fill();
 }
 
@@ -138,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       const distance = Math.sqrt((p.x - x) ** 2 + (p.y - y) ** 2);
-      if (distance < p.size) {
+      if (distance < p.size + MARGIN) {
         playPop();
         particles.splice(i, 1); // Remove the particle
         score += 1; // Increment the score
@@ -172,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Move and draw each particle
     particles.forEach((p) => {
       p.move();
-      drawMotion(p.prevX, p.prevY, p.x, p.y, p.size, ctx);
+      drawParticle(p, ctx);
     });
 
     if (particles.length < N_PARTICLES) {
