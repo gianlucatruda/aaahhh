@@ -1,15 +1,15 @@
-# AAAAAAHHHHHHHH
+# AAAAAAHHHHHHHH!!!!!
 
 [<img alt="Made with love at the Recurse Center" src="https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png" height="20">](https://www.recurse.com/)
 
-Somewhere between a click trainer game and an exercise in anxious suffering.
+Somewhere between a click trainer game and a psychological torture device.
 
 Play at [aaahhh.vercel.app](https://aaahhh.vercel.app/)
 
 --- 
-
-<video src="demo.mp4" controls>
+<video src="https://github.com/user-attachments/assets/0ba81932-cf82-4de1-8f46-381e7c5b5f10" controls>
 </video>
+
 
 Made as part of a 90-minute Creative Coding session at [Recurse](https://gianluca.ai/recurse-init/) with the prompt:
 
