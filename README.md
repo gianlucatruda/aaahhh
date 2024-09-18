@@ -8,7 +8,8 @@ Play at [aaahhh.vercel.app](https://aaahhh.vercel.app/)
 
 --- 
 
-![Video demo](demo.mp4)
+<video src="demo.mp4" controls>
+</video>
 
 Made as part of a 90-minute Creative Coding session at [Recurse](https://gianluca.ai/recurse-init/) with the prompt:
 
